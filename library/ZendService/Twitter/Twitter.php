@@ -616,6 +616,25 @@ class Twitter
     }
 
     /**
+     * Returns an array of followed user ids
+     *
+     * @param  integer $cursor  Optional. Specifies the cursor position at which to begin listing ids; defaults to first "page" of results.
+     * @param integer $count
+     * @throws Exception\DomainException if unable to decode JSON payload
+     * @return Response
+     */
+    public function friendsIds($cursor = -1, $count = 1000)
+    {
+        $this->init();
+        $path = 'friends/ids';
+        $response = $this->get($path, array(
+            'cursor' => $cursor,
+            'count'  => $count
+        ));
+        return new Response($response);
+    }
+
+    /**
      * Create friendship
      *
      * @param  int|string $id User ID or name of new friend
